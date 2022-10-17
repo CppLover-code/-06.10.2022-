@@ -11,26 +11,54 @@ struct complex_number  // именованная структура для ко�
     float imagine;
 };
 
-int main();
+int main();                                                                  // прототип функции int main();
+void check_data(float x1, float y1, float x2, float y2, char oper);          // прототип функции проверки введенных данных пользователем
+complex_number add_sub(float n1, float n2, char oper);                       // прототип функции выполнения операций '+' '-'
+complex_number mult_div(float x1, float y1, float x2, float y2, char oper);  // прототип функции выполнения операций '*' '/'
+void print_complex_number(complex_number x, complex_number y);               // прототип функции вывода результата в консоль
+void operations(float x1, float y1, float x2, float y2, char oper);          // прототип функции проверки знака операции и выполнение 
+
+
+int main()
+{
+    std::cout << " Operations with complex numbers '+' '-' '*' '/')\n\n";
+
+    float x1, y1;  // исп тип данных float, тк результаты некоторых 
+    float x2, y2;  // операций могут давать вещественные числа
+
+    char oper;
+
+    std::cout << "Enter the real and imaginary part of the first complex number:\n";
+    std::cin >> x1 >> y1;
+    std::cout << "Enter the real and imaginary part of the second complex number:\n";
+    std::cin >> x2 >> y2;
+    std::cout << "Enter a math symbol:\n";
+    std::cin >> oper;
+
+    check_data(x1, y1, x2, y2, oper);
+    operations(x1, y1, x2, y2, oper);
+    
+    return 0;
+}
 
 void check_data(float x1, float y1, float x2, float y2, char oper)                                      // функция проверки введенных данных пользователем
 {
     std::cout << "\n(" << x1 << (y1 >= 0 ? "+" : "") << y1 << "i) "                                     //вывод введенных данных в виде выражения
-        << oper 
+        << oper
         << " " << "(" << x2 << (y2 >= 0 ? "+" : "") << y2 << "i)";
 
     if (x1 == 0 && y1 == 0 && (oper == '*' || oper == '/'))                                             // если два числа первого выражения равны нулю и 
     {
         std::cout << "\n The real and imaginary parts of the -first- expression are equal to zero.\n"   // знак операции '*' или '/', то выводим предупреждение
-            << " Operation not possible =( Enter all data again!\n\n"; 
-            main();                                                                                     // и возвращаем пользователя обратно к вводу данных
+            << " Operation not possible =( Enter all data again!\n\n";
+        main();                                                                                     // и возвращаем пользователя обратно к вводу данных
     }
 
     else if (x2 == 0 && y2 == 0 && (oper == '*' || oper == '/'))                                        // если два числа второго  выражения равны нулю и 
     {
         std::cout << "\n The real and imaginary parts of the -second- expression are equal to zero.\n"  // знак операции '*' или '/', то выводим предупреждение
             << " Operation not possible =( Enter all data again!\n\n";
-            main();                                                                                     // и возвращаем пользователя обратно к вводу данных
+        main();                                                                                     // и возвращаем пользователя обратно к вводу данных
     }
 
     else if (oper != '+' && oper != '-' && oper != '*' && oper != '/')                                  // если введенный знак операции не соответствует указаному,
@@ -40,12 +68,12 @@ void check_data(float x1, float y1, float x2, float y2, char oper)              
     }
 }
 
-complex_number add_sub(float n1,float n2, char oper)  // функция выполнения операций '+' '-'
+complex_number add_sub(float n1, float n2, char oper)  // функция выполнения операций '+' '-'
 {
     complex_number x;                                 // имя структуры исп для объявления объектов
     switch (oper)                                     // проверяем введенный знак операции и выполняем соответствующие действия
     {
-    case '+':                                       
+    case '+':
         x.real = n1 + n2;
         x.imagine = n1 + n2;
         return x;                                     // возвращаем результат 
@@ -72,11 +100,11 @@ complex_number mult_div(float x1, float y1, float x2, float y2, char oper)  // �
     switch (oper)                                                           // проверяем введенный знак операции и выполняем соответствующие действия
     {
     case '*':
-     
+
         x.real = a - b;
         x.imagine = c + d;
 
-        return x;       
+        return x;
         break;
 
     case '/':
@@ -128,25 +156,16 @@ void operations(float x1, float y1, float x2, float y2, char oper)  // функ�
     }
 }
 
-int main()
+/*
+    Создайте структуру «Автомобиль» (длина, клиренс(высота посадки),
+    объём двигателя, мощность двигателя, диаметр колёс, цвет, тип
+    коробки передач). Создайте функции для ввода значений, отображения
+    значений, поиска значений.
+*/
+#include <iostream>
+
+struct car  // именованная структура для комплексных чисел
 {
-    std::cout << " Operations with complex numbers '+' '-' '*' '/')\n\n";
-
-    float x1, y1;  // исп тип данных float, тк результаты некоторых 
-    float x2, y2;  // операций могут давать вещественные числа
-
-    char oper;
-
-    std::cout << "Enter the real and imaginary part of the first complex number:\n";
-    std::cin >> x1 >> y1;
-    std::cout << "Enter the real and imaginary part of the second complex number:\n";
-    std::cin >> x2 >> y2;
-    std::cout << "Enter a math symbol:\n";
-    std::cin >> oper;
-
-    check_data(x1, y1, x2, y2, oper);
-    operations(x1, y1, x2, y2, oper);
-    
-    return 0;
-}
-
+    float real;        // поля структуры
+    float imagine;
+};
