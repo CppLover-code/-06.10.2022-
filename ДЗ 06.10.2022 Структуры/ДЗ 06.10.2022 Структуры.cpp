@@ -163,8 +163,9 @@
     значений, поиска значений.
 */
 #include <iostream>
-
-struct car  // именованная структура для характеристик авто
+#include <Windows.h>
+#include "colors.h"
+struct car                 // именованная структура для характеристик авто
 {
     float length{};        // поля структуры
     float clearance{};
@@ -178,75 +179,96 @@ struct car  // именованная структура для характер
 };
 
 car* arr;
-int size = -1;
+int size;
 
-void input_arr()
+void input_arr()                                                         // функция заполнения массива данными об авто
 {
-    std::cout << "input size array";  // сколько характеристик машин будет записано
-
+    std::cout << "How many cars do you want to add to the database?\n";  // кол-во характеристик машин будет записано
     std::cin >> size;
 
     if (size < 1) size = 1;
-    arr = new car[size];
+    arr = new car[size];                                                 // выделение памяти под массив 
 
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)                                       // заполняем массив данными
     {
-        std::cout <<" Car number " << i + 1 << ".\n";    // разобраться с пробелами и system cls
+        std::cout << colors::BLUE_BOLD 
+                  << " Car number "
+                  << i + 1 << ".\n" 
+                  << colors::RESET;
 
-        std::cout << " Enter length:";
+        std::cout << " Enter length: ";
         std::cin >> arr[i].length;
 
-        std::cout << " Enter clearance (ride height):";
+        std::cout << " Enter clearance: ";
         std::cin >> arr[i].clearance;
 
-        std::cout << " Enter volume:";
+        std::cout << " Enter volume: ";
         std::cin >> arr[i].volume;
 
-        std::cout << " Enter power:";
+        std::cout << " Enter power: ";
         std::cin >> arr[i].power;
 
-        std::cout << " Enter diameter:";
+        std::cout << " Enter diameter: ";
         std::cin >> arr[i].diameter;
 
-        std::cout << " Enter color:"; // сделать меню с цветами, а при выводе данного эл массива сделать switch и вместо цифаы вывести текст
+        std::cout << " Enter color: "; 
         std::cin >> arr[i].color;
 
-        std::cout << " Enter the type of gearbox, 0 - automatic , 1 - mechanical:";
-        int tp = 0;
+        std::cout << " Enter the type of gearbox:\n" 
+            << " 0 - automatic\n" 
+            << " 1 - mechanical:\n";
+
+        int tp = 0;                                                        // переменная для проверки значения
         std::cin >> tp;
-        (tp > 0) ? arr[i].type = true : arr[i].type = false;
+        (tp > 0) ? arr[i].type = true : arr[i].type = false;               // если введенное число больше нуля - 1, иначе - 0
     }
 }
 
-void print_rec(int i)
+void print_rec(int i)                                           // функция вывода данных массива
 {
-    std::cout << " Car number " << i + 1 << ".\n";
-    std::cout << "Length " << arr[i].length << "\n";
-    std::cout << "Clearance " << arr[i].clearance << "\n";
-    std::cout << "Volume " << arr[i].volume << "\n";
-    std::cout << "Power " << arr[i].power << "\n";
-    std::cout << "Diameter " << arr[i].diameter << "\n";
-    std::cout << "Color " << arr[i].color << "\n";
-    std::cout << "Type of gearbox";
-    (arr[i].type) ? std::cout << "mechanical" : std::cout << "automatic" << "\n\n";
+    if (size < 1) std::cout << colors::RED_BRIGHT               // если размер массива меньше 1, то массив не заполнен
+                            << " Car details not yet filled!" 
+                            << colors::RESET<< "\n";
+    else                                                        // иначе выводим данные в консоль
+    {
+        std::cout << colors::BLUE_BOLD  
+                  << " Car number "
+                  << i + 1 << "\n" 
+                  << colors::RESET
+
+            << "Length           " << arr[i].length    << "\n"
+            << "Clearance        " << arr[i].clearance << "\n"
+            << "Volume           " << arr[i].volume    << "\n"
+            << "Power            " << arr[i].power     << "\n"
+            << "Diameter         " << arr[i].diameter  << "\n"
+            << "Color            " << arr[i].color     << "\n"
+            << "Type of gearbox  ";
+        (arr[i].type) ? std::cout << "mechanical\n\n" :         // проверяем булевскую переменную и выводим соотв. данные
+            std::cout << "automatic" << "\n\n";
+    }
 }
 
-void output_arr()
+void output_arr()                                               // функция вывода данных массива на экран консоли
 {
-    if (size < 0) std::cout << "Array is not input!\n"; 
-    else for (int i = 0; i < size; i++) print_rec(i);
+    if (size <= 0) std::cout << colors::RED_BRIGHT              // если размер массива меньше <= 0, то массив не заполнен
+                             << " Car details not yet filled!" 
+                             << colors::RESET << "\n";
+
+    else for (int i = 0; i < size; i++) print_rec(i);           // иначе выводим на экран консоли
 }
 
-int search() // поиск и вывод всех машин по объему двигателя
+int search()                                                    // функция поиска автомобиля по данным
 {
 
-    if (size <= 0) std::cout << "Array is not input!\n";
-    else
+    if (size < 1) std::cout << colors::RED_BRIGHT               // если размер массива меньше < 1, то массив не заполнен
+                            << " Car details not yet filled!"
+                            << colors::RESET << "\n";
+    else                                                        // иначе предлагаем выбрать характеристику для поиска
     {
         int menu_s;
         std::cout << "Enter feature number to search\n"
          << "1 - length\n"
-         << "2 - clearance\n"                                                                       // проверки нет от 1 до 7!!!!!
+         << "2 - clearance\n"                                                                       
          << "3 - volume\n"
          << "4 - power\n"
          << "5 - diameter\n"
@@ -255,28 +277,28 @@ int search() // поиск и вывод всех машин по объему �
 
         std::cin >> menu_s;
 
-        //system("cls");
+        //system("pause");
+        Sleep(2000);
+        system("cls");
 
         if (menu_s != 6) std::cout << "Enter data to search\n"; 
         else std::cout << "0 - automatic or 1 - mechanical\n";
 
-        float data;
-        std::string data_color;
+        float data;                                              // переменная для ввода числовых значений в меню от 1 до 6
+        std::string data_color;                                  // переменная для ввода цвета в меню 7
 
-        if (menu_s <= 6) std::cin >> data;
-        else std::cin >> data_color;
+        if (menu_s <= 6) std::cin >> data;                       // если выбор от 1 до 6 - ввод число
+        else std::cin >> data_color;                             // иначе цвет авто
 
-        int count_s = 0;
-
+        int count_s = 0;                                         // счетчик кол-ва найденных авто
 
         for (int i = 0; i < size; i++)
         {
-            float temp;
+            float temp = 0;
             std::string temp_color;
 
-            switch (menu_s)
-            {
-
+            switch (menu_s)                                      // проверем выбранный пункт меню
+            {                                                    // и записываем его значение в временную переменную
             case 1: 
                 temp = arr[i].length;
                 break; 
@@ -300,8 +322,7 @@ int search() // поиск и вывод всех машин по объему �
                 break; 
             }
 
-
-            if (menu_s <= 6)
+            if (menu_s <= 6)                                     // выводим найденное авто в зависимости от выбранного пункта меню
             {
                 if (temp == data) 
                 {
@@ -319,29 +340,32 @@ int search() // поиск и вывод всех машин по объему �
             }
         }
 
-        return count_s;
+        return count_s;                                            // возвращаем найденное кол-во авто
     }
     return 0;
 }
 
 int main()
 {
-    bool ok = true;
+    system("title Cars data");
+    bool work = true;
     int menu;
 
     do
     {
-        std::cout << "MENU\n";
-        std::cout << "1 - input array\n";
-        std::cout << "2 - output array\n";
-        std::cout << "3 - search array\n";
-        std::cout << "any key - exit\n";
-        std::cout << "Press menu key: ";
+        std::cout << "MENU\n"
+         << "1 - add car details\n"
+         << "2 - show car details\n"
+         << "3 - data search\n"
+         << "Any key - exit\n"
+         << "Choose an option: ";
         std::cin >> menu;
 
-        //system("cls");
+        //system("pause");
+        Sleep(2000);
+        system("cls");
 
-        switch (menu)
+        switch (menu)               
         {
         case 1:
 
@@ -351,34 +375,36 @@ int main()
         case 2:
 
             output_arr();
+            Sleep(2000);
             break;
 
         case 3:
         {
             int count = search();
-            (count == -1) ? std::cout << "record is not search!\n" :
-                (size < 0) ? std::cout << "Error search!\n" : std::cout << "record search count: " << count << "\n";
+            (count < 1) ? std::cout << colors::RED_BRIGHT 
+                                    << " Car data not found!" 
+                                    << colors::RESET << "\n" :
+
+                          std::cout << colors::GREEN_BRIGHT 
+                                    << "Total found: " << count 
+                                    << " car(s)" << colors::RESET << "\n";
+            Sleep(2000);
             break;
         }
-
-
-
+            
         default:
-            ok = false;
-            break;
 
+            work = false;
+            break;
         }
 
-        /*if (menu <= 3 && menu >= 1) {
-            string ext;
-            cout << "OK! Press any key!";
-            cin >> ext;
-        }*/
+        //system("pause");
+        Sleep(2000);
+        system("cls");
 
-        //system("cls");
+    } while (work);
 
-    } while (ok);
-
+    delete[] arr;  // освобождение памяти дин. массива
 
     return 0;
 }

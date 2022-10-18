@@ -129,6 +129,9 @@
   <ItemGroup>
     <ClCompile Include="ДЗ 06.10.2022 Структуры.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Практика в классе 29.09.2022\Практика в классе 29.09.2022\colors.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
