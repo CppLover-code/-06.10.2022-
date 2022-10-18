@@ -166,13 +166,15 @@
 
 struct car  // именованная структура для характеристик авто
 {
-    float length;        // поля структуры
-    float clearance;
-    float volume;
-    float power;
-    float diameter;
-    std::string color;
-    bool type;
+    float length{};        // поля структуры
+    float clearance{};
+    float volume{};
+    float power{};
+    float diameter{};
+    std::string color{};
+    bool type{};
+
+    car() {};
 };
 
 car* arr;
