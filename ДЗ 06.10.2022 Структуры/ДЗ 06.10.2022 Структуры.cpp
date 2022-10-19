@@ -365,8 +365,8 @@ int main()
         Sleep(2000);
         system("cls");
 
-        switch (menu)               
-        {
+        switch (menu)                                                        // проверяем ввод пользователя
+        {                                                                    // и выполняем соотв. функции и действия
         case 1:
 
             input_arr();
@@ -381,11 +381,11 @@ int main()
         case 3:
         {
             int count = search();
-            (count < 1) ? std::cout << colors::RED_BRIGHT 
-                                    << " Car data not found!" 
+            (count < 1) ? std::cout << colors::RED_BRIGHT                    // если функция search() вернула значение < 1, то
+                                    << " Car data not found!"                // совпадений не найдено
                                     << colors::RESET << "\n" :
 
-                          std::cout << colors::GREEN_BRIGHT 
+                          std::cout << colors::GREEN_BRIGHT                   // иначе показываем кол-во найденных авто
                                     << "Total found: " << count 
                                     << " car(s)" << colors::RESET << "\n";
             Sleep(2000);
