@@ -51,14 +51,14 @@
 //    {
 //        std::cout << "\n The real and imaginary parts of the -first- expression are equal to zero.\n"   // знак операции '*' или '/', то выводим предупреждение
 //            << " Operation not possible =( Enter all data again!\n\n";
-//        main();                                                                                     // и возвращаем пользователя обратно к вводу данных
+//        main();                                                                                         // и возвращаем пользователя обратно к вводу данных
 //    }
 //
 //    else if (x2 == 0 && y2 == 0 && (oper == '*' || oper == '/'))                                        // если два числа второго  выражения равны нулю и 
 //    {
 //        std::cout << "\n The real and imaginary parts of the -second- expression are equal to zero.\n"  // знак операции '*' или '/', то выводим предупреждение
 //            << " Operation not possible =( Enter all data again!\n\n";
-//        main();                                                                                     // и возвращаем пользователя обратно к вводу данных
+//        main();                                                                                         // и возвращаем пользователя обратно к вводу данных
 //    }
 //
 //    else if (oper != '+' && oper != '-' && oper != '*' && oper != '/')                                  // если введенный знак операции не соответствует указаному,
@@ -385,7 +385,7 @@ int main()
                                     << " Car data not found!"                // совпадений не найдено
                                     << colors::RESET << "\n" :
 
-                          std::cout << colors::GREEN_BRIGHT                   // иначе показываем кол-во найденных авто
+                          std::cout << colors::GREEN_BRIGHT                  // иначе показываем кол-во найденных авто
                                     << "Total found: " << count 
                                     << " car(s)" << colors::RESET << "\n";
             Sleep(2000);
@@ -404,7 +404,7 @@ int main()
 
     } while (work);
 
-    delete[] arr;  // освобождение памяти дин. массива
+    delete[] arr;                                                            // освобождение памяти дин. массива
 
     return 0;
 }
